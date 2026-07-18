@@ -149,6 +149,7 @@
   }
   .opt-btn.selected .opt-key{color:var(--ink);}
   .multi-hint{color:var(--paper-dim);font-size:12px;margin:-14px 0 16px;}
+  .select-all-hint{color:var(--amber);font-size:18px;margin:0 0 30px;letter-spacing:0.04em;}
   .submit-btn{width:100%;margin-top:8px;padding:16px;font-size:16px;}
   .waitbox{
     flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;
@@ -250,27 +251,19 @@ if(!window.storage){
 const OPT_KEYS = ["A","B","C","D"];
 
 const DISCUSSION = [
-  "Think of someone who's waiting for you at home right now. If they asked you honestly — \"do you and your crew really look out for each other?\" — what would you say?",
   "Ever think that being careless today could leave a colleague's kid without a dad tomorrow?",
   "How do we look out for each other without it turning into a lecture — so it actually feels like we care?",
-  "Ever taken over a shift and felt your heart racing because you weren't sure about a blind? What'd you do?",
   "Imagine staying quiet about a small hazard today, and tomorrow it happens to your closest workmate. How would that sit with you?",
   "How do we get leaders to understand that punishing someone who made an honest mistake just buries the real problem instead of fixing it?",
   "How do we build a place where someone can say \"no, this isn't safe\" without worrying about their job?",
   "When's the last time you wish you'd stopped a job — and didn't? What'd you learn from it?",
   "When did being \"nice\" about small stuff around here actually turn into something dangerous?",
   "How do we make \"Safety First\" mean something real for the guys out in the field, not just a sign on the wall?",
-  "When's the last time you were running on empty — maybe 10% focus? How'd you get through it safe?",
   "Got an example of a procedure that feels like it's just there to cover the company legally? How could we make it actually work?",
   "What's the one honest thing you'd want leadership to hear right now about your safety out there?"
 ];
 
 const QUESTIONS = [
-  {
-    type:"poll",
-    text:"At the end of every shift, someone's waiting for you to walk through that door. What matters most to you today?",
-    options:["Getting home safe to my family","Not being the reason a workmate gets hurt","Building a workplace we're proud of","All of it — safety comes before everything"]
-  },
   {
     type:"poll",
     text:"Imagine you had to call a colleague's family after an accident — because his shift was careless and you stayed quiet. What would be the hardest thing to say?",
@@ -283,18 +276,13 @@ const QUESTIONS = [
   },
   {
     type:"poll",
-    text:"A blind is the last thing standing between you and a gas or chemical leak you can't even see. What worries you most when you take over a job that depends on one?",
-    options:["The blind list might be wrong or outdated","I can't check the blind myself — too hard to reach or no time","The last shift might've missed something","We're rushed, and rushing feels more urgent than staying safe"]
-  },
-  {
-    type:"poll",
     text:"When something almost goes wrong and we decide not to report it... what's the excuse we tell ourselves?",
     options:["Nothing happened, so who cares","I'm scared of getting blamed or investigated","Reporting never changes anything anyway","The paperwork's too much hassle"]
   },
   {
     type:"poll",
     text:"You make an honest mistake while genuinely trying to do the job right. What hurts the most about how leadership reacts?",
-    options:["Being treated like I'm guilty before anyone even asks what happened","Threats to my job with zero understanding","They blame me and ignore the broken system that set me up to fail","The way colleagues look at me differently afterward"]
+    options:["Being treated like I'm guilty before anyone even asks what happened","Threats to my job with zero understanding","They support me and blame the system that set me up to fail","The way colleagues look at me differently afterward"]
   },
   {
     type:"poll",
@@ -318,17 +306,12 @@ const QUESTIONS = [
   },
   {
     type:"poll",
-    text:"Fatigue is the hidden danger nobody talks about. When you're wiped out near the end of a shift, what do you actually do?",
-    options:["Push through and act like I'm fine","Ask my team for help and be honest about it","Quietly skip a few steps just to get it done","Tell my supervisor, whatever happens happens"]
-  },
-  {
-    type:"poll",
     text:"Some procedures feel way too complicated. What's your honest take on that?",
     options:["Feels like it's there to protect the company, not me","It asks for things that just can't all happen at once","Nobody actually asks the guys doing the work what they think","I quietly find my own safer way around it"]
   },
   {
     type:"poll",
-    text:"What would make you feel truly confident this is a safe, fair place to spend your whole career?",
+    text:"Which of the below need more focus to make you confident that is is a safe place to spend your whole career?",
     options:["When leadership delays a job just to keep us safe","When a mistake gets a coaching conversation, not a scapegoat","When my ideas from the field actually get listened to","When I know my kids won't lose me to something preventable"]
   }
 ];
@@ -478,6 +461,7 @@ function renderHost(){
       <div class="host-main">
         <span class="qtype-tag ${q.type}">${q.type === 'knowledge' ? 'ALIGN ON TERMS' : 'OPEN FLOOR'}</span>
         <h2 class="qtext">${q.text}</h2>
+        <p class="select-all-hint mono">Select all answers that apply</p>
         <div class="bars" id="hostBars"></div>
         <div class="totalvotes mono" id="hostTotal">0 votes recorded</div>
         <div id="spotlightArea">${hostSpotlight ? `
