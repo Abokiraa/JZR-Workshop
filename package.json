@@ -1,0 +1,12 @@
+{
+  "name": "safety-culture-live-local",
+  "version": "1.0.0",
+  "description": "Local host for the Safety Culture Live workshop poll — no internet required beyond a shared Wi-Fi network.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
